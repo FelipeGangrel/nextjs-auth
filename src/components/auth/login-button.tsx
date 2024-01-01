@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation'
 import { appRoutes } from '@/lib/routes'
 
 type LoginButtonProps = {
-  mode?: 'modal' | 'redirect'
   asChild?: boolean
   children?: React.ReactNode
+  mode?: 'modal' | 'redirect'
 }
 
 export const LoginButton = ({
