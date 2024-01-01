@@ -19,7 +19,7 @@ export default function Home() {
             poppins.className
           )}
         >
-          🔐 Auth
+          Auth
         </h1>
         <p className="text-lg text-white">A simple authentication service</p>
         <div>
