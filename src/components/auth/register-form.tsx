@@ -43,6 +43,8 @@ export const RegisterForm = () => {
   })
 
   const handleSubmit = (values: FieldValues) => {
+    setErrorMessage(undefined)
+    setSuccessMessage(undefined)
     startTransition(() => {
       register(values).then((response) => {
         if (response.error) {

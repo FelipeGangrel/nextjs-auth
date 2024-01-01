@@ -42,6 +42,8 @@ export const LoginForm = () => {
   })
 
   const handleSubmit = (values: FieldValues) => {
+    setErrorMessage(undefined)
+    setSuccessMessage(undefined)
     startTransition(() => {
       login(values).then((response) => {
         if (response.error) {
