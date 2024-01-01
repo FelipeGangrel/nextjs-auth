@@ -3,6 +3,7 @@
 import bcrypt from 'bcrypt'
 import * as z from 'zod'
 
+import { getUserByEmail } from '@/data/user'
 import { db } from '@/lib/db'
 import { RegisterSchema } from '@/schemas'
 
@@ -15,11 +16,7 @@ export const register = async (data: z.infer<typeof RegisterSchema>) => {
 
   const { email, name, password } = validatedFields.data
 
-  const existingUser = await db.user.findUnique({
-    where: {
-      email,
-    },
-  })
+  const existingUser = await getUserByEmail(email)
 
   if (existingUser) {
     return { error: 'Email already in use!' }
