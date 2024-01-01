@@ -5,7 +5,7 @@ import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-import { login } from '@/actions/login'
+import { register } from '@/actions/register'
 import { Message } from '@/components/message'
 import { Button } from '@/components/ui/button'
 import {
@@ -44,7 +44,7 @@ export const RegisterForm = () => {
 
   const handleSubmit = (values: FieldValues) => {
     startTransition(() => {
-      login(values).then((response) => {
+      register(values).then((response) => {
         if (response.error) {
           setErrorMessage(response.error)
         }
