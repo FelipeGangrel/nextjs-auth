@@ -1,10 +1,10 @@
 'use server'
 
+import * as z from 'zod'
+
 import { LoginSchema } from '@/schemas'
 
-import { LoginFormValues } from './types'
-
-export const login = async (data: LoginFormValues) => {
+export const login = async (data: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(data)
 
   if (!validatedFields.success) {
