@@ -1,4 +1,4 @@
-import { BaseLayoutProps } from '@/types/common'
+import { BaseLayoutProps } from '@/types'
 
 export default function AuthLayout({ children }: BaseLayoutProps) {
   return (
