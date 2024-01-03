@@ -2,15 +2,45 @@ import NextAuth from 'next-auth'
 
 import authConfig from '@/auth.config'
 
+import { apiRoutes, appRoutes } from './lib/routes'
+
 const { auth } = NextAuth(authConfig)
 
+const appAuthRoutes = [
+  appRoutes.auth.login(),
+  appRoutes.auth.register(),
+] as string[]
+
+const publicRoutes = ['/']
+
 export default auth((req) => {
+  const { nextUrl } = req
   const isLoggedIn = !!req.auth
 
-  console.log({
-    route: req.nextUrl.pathname,
-    isLoggedIn,
-  })
+  const { pathname } = nextUrl
+
+  const isApiAuthRoute = pathname.startsWith(apiRoutes.auth())
+  const isAppAuthRoute = appAuthRoutes.includes(pathname)
+  const isPublicRoute = publicRoutes.includes(pathname)
+
+  if (isApiAuthRoute) {
+    return null
+  }
+
+  if (isAppAuthRoute) {
+    if (isLoggedIn) {
+      const url = new URL(appRoutes.settings(), nextUrl)
+      return Response.redirect(url)
+    }
+    return null
+  }
+
+  if (!isLoggedIn && !isPublicRoute) {
+    const url = new URL(appRoutes.auth.login(), nextUrl)
+    return Response.redirect(url)
+  }
+
+  return null
 })
 
 /**
