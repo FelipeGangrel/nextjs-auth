@@ -1,7 +1,10 @@
 'use server'
 
+import { AuthError } from 'next-auth'
 import * as z from 'zod'
 
+import { signIn } from '@/auth'
+import { appRoutes } from '@/lib/routes'
 import { LoginSchema } from '@/schemas'
 
 export const login = async (data: z.infer<typeof LoginSchema>) => {
@@ -11,7 +14,24 @@ export const login = async (data: z.infer<typeof LoginSchema>) => {
     return { error: 'Invalid fields' }
   }
 
-  return {
-    success: 'Email sent',
+  const { email, password } = validatedFields.data
+
+  try {
+    await signIn('credentials', {
+      email,
+      password,
+      redirectTo: appRoutes.settings(),
+    })
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return { error: 'Invalid credentials' }
+        default:
+          return { error: 'Something went wrong' }
+      }
+    }
+
+    throw error
   }
 }
