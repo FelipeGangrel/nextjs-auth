@@ -80,3 +80,9 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .default-gradient {
+    @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-400 to-purple-800;
+  }
+}
