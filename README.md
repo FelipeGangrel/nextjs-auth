@@ -2,10 +2,18 @@
 
 ## Resources
 
-- Neon.tech: https://neon.tech/ (Postgres hosting)
-- Prisma: https://www.prisma.io/ (database ORM)
+### Postgres hosting
+
+- Neon.tech: https://neon.tech/
+
+### Next-Auth
+
 - Next-Auth: https://authjs.dev/ (authentication)
   - Prisma adapter: https://authjs.dev/reference/adapter/prisma
+
+### Email sending
+
+- Resend: https://resend.com
 
 ## How to create a Github OAuth app
 
