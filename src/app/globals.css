@@ -83,6 +83,6 @@ body,
 
 @layer components {
   .default-gradient {
-    @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-400 to-purple-800;
+    @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-400 to-teal-800;
   }
 }
