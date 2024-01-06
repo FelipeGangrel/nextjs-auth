@@ -4,7 +4,7 @@ export const appRoutes = {
     register: () => '/auth/register' as const,
     error: () => '/auth/error' as const,
     newVerification: () => '/auth/new-verification' as const,
-    reset: () => '/auth/reset' as const,
+    resetPassword: () => '/auth/reset-password' as const,
   },
   settings: () => '/settings' as const,
 }

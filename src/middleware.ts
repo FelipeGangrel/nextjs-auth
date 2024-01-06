@@ -10,7 +10,7 @@ const appAuthRoutes = [
   appRoutes.auth.login(),
   appRoutes.auth.register(),
   appRoutes.auth.error(),
-  appRoutes.auth.reset(),
+  appRoutes.auth.resetPassword(),
 ] as string[]
 
 const publicRoutes = [

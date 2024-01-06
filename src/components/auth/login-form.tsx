@@ -106,7 +106,9 @@ export const LoginForm = () => {
                     asChild
                     className="px-0 font-normal"
                   >
-                    <Link href={appRoutes.auth.reset()}>Forgot password?</Link>
+                    <Link href={appRoutes.auth.resetPassword()}>
+                      Forgot password?
+                    </Link>
                   </Button>
                   <FormMessage />
                 </FormItem>
