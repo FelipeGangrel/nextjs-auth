@@ -4,7 +4,8 @@
 
 ### Postgres hosting
 
-- Neon.tech: https://neon.tech/
+- Neon.tech: https://neon.tech/ (disconnects all the time)
+- ElephantSQL: https://www.elephantsql.com/
 
 ### Next-Auth
 
