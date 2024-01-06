@@ -13,7 +13,7 @@
 
 ### Email sending
 
-- Resend: https://resend.com
+- Resend: https://resend.com (You will only get to send emails to your own email address until you verify your domain)
 
 ## How to create a Github OAuth app
 
