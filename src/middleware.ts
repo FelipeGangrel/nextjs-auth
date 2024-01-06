@@ -9,6 +9,7 @@ const { auth } = NextAuth(authConfig)
 const appAuthRoutes = [
   appRoutes.auth.login(),
   appRoutes.auth.register(),
+  appRoutes.auth.error(),
 ] as string[]
 
 const publicRoutes = ['/']
