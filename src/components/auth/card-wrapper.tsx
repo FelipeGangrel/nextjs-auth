@@ -9,7 +9,7 @@ import { SocialButtons } from './social-buttons'
 type CardWrapperProps = {
   backButtonHref: string
   backButtonLabel: string
-  children: React.ReactNode
+  children?: React.ReactNode
   headerLabel: string
   showSocialButtons?: boolean
 }
@@ -26,7 +26,7 @@ export const CardWrapper = ({
       <CardHeader>
         <Header label={headerLabel} />
       </CardHeader>
-      <CardContent>{children}</CardContent>
+      {children && <CardContent>{children}</CardContent>}
       {showSocialButtons && (
         <CardFooter>
           <SocialButtons />
