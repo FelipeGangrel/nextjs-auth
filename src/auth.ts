@@ -20,6 +20,14 @@ export const {
    * The callbacks are run on the edge (serverless) and
    * we can't use Prisma ORM on the edge.
    */
+  events: {
+    linkAccount: async ({ user }) => {
+      await db.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      })
+    },
+  },
   callbacks: {
     session: async ({ session, token }) => {
       if (session.user) {
