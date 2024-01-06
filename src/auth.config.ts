@@ -18,7 +18,6 @@ export default {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     Credentials({
-      name: 'Credentials',
       /**
        * Its okay to use Prisma ORM inside the authorize function because
        * it will only run on the server, not the edge (serverless).
