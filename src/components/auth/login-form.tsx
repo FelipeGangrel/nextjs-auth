@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -25,10 +26,15 @@ import { CardWrapper } from './card-wrapper'
 type FieldValues = z.infer<typeof LoginSchema>
 
 export const LoginForm = () => {
+  const searchParams = useSearchParams()
+
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'Email already used with different provider'
+      : undefined
+
   const [isPending, startTransition] = useTransition()
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(
-    undefined
-  )
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(urlError)
   const [successMessage, setSuccessMessage] = useState<string | undefined>(
     undefined
   )
@@ -46,13 +52,9 @@ export const LoginForm = () => {
     setSuccessMessage(undefined)
     startTransition(() => {
       login(values).then((response) => {
-        if (response.error) {
-          setErrorMessage(response.error)
-        }
-
-        if (response.success) {
-          setSuccessMessage(response.success)
-        }
+        setErrorMessage(response?.error)
+        // TODO: add when we have 2FA
+        // setSuccessMessage(response?.success)
       })
     })
   }
