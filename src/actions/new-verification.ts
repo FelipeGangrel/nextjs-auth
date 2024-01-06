@@ -11,7 +11,7 @@ export const newVerification = async (token: string) => {
     return { error: 'Invalid token!' }
   }
 
-  const hasExpired = existingToken.expiresAt < new Date()
+  const hasExpired = new Date() > existingToken.expiresAt
 
   if (hasExpired) {
     return { error: 'Token has expired!' }
