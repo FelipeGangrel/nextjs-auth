@@ -6,6 +6,8 @@ import authConfig from '@/auth.config'
 import { getUserById } from '@/data/user'
 import { db } from '@/lib/db'
 
+import { appRoutes } from './lib/routes'
+
 export const {
   handlers: { GET, POST },
   auth,
@@ -14,12 +16,10 @@ export const {
 } = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: 'jwt' },
-  /**
-   * Why not put this in auth.config.ts?
-   *
-   * The callbacks are run on the edge (serverless) and
-   * we can't use Prisma ORM on the edge.
-   */
+  pages: {
+    signIn: appRoutes.auth.login(),
+    error: appRoutes.auth.error(),
+  },
   events: {
     linkAccount: async ({ user }) => {
       await db.user.update({
@@ -28,6 +28,12 @@ export const {
       })
     },
   },
+  /**
+   * Why not put this in auth.config.ts?
+   *
+   * The callbacks are run on the edge (serverless) and
+   * we can't use Prisma ORM on the edge.
+   */
   callbacks: {
     session: async ({ session, token }) => {
       if (session.user) {
