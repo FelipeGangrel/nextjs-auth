@@ -46,6 +46,8 @@ export const login = async (data: z.infer<typeof LoginSchema>) => {
       switch (error.type) {
         case 'CredentialsSignin':
           return { error: 'Invalid credentials' }
+        case 'OAuthAccountNotLinked':
+          return { error: 'Email already used with different provider' }
         default:
           return { error: 'Something went wrong' }
       }
