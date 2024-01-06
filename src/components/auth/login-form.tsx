@@ -53,8 +53,7 @@ export const LoginForm = () => {
     startTransition(() => {
       login(values).then((response) => {
         setErrorMessage(response?.error)
-        // TODO: add when we have 2FA
-        // setSuccessMessage(response?.success)
+        setSuccessMessage(response?.success)
       })
     })
   }
