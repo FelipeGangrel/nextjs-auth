@@ -35,6 +35,18 @@ export const {
    * we can't use Prisma ORM on the edge.
    */
   callbacks: {
+    signIn: async ({ user, account }) => {
+      // allow OAuth without email verification
+      if (account?.provider !== 'credentials') return true
+
+      const existingUser = await getUserById(user.id)
+
+      if (!existingUser?.emailVerified) return false
+
+      // TODO: Add 2FA check here
+
+      return true
+    },
     session: async ({ session, token }) => {
       if (session.user) {
         if (token.sub) {
