@@ -12,7 +12,11 @@ const appAuthRoutes = [
   appRoutes.auth.error(),
 ] as string[]
 
-const publicRoutes = ['/']
+const publicRoutes = [
+  '/',
+  // both logged in and logged out users can access this route
+  appRoutes.auth.newVerification(),
+]
 
 export default auth((req) => {
   const { nextUrl } = req
