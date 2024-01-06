@@ -27,9 +27,7 @@ type FieldValues = z.infer<typeof ResetPasswordSchema>
 export const ResetPasswordForm = () => {
   const [isPending, startTransition] = useTransition()
   const [errorMessage, setErrorMessage] = useState<string | undefined>()
-  const [successMessage, setSuccessMessage] = useState<string | undefined>(
-    undefined
-  )
+  const [successMessage, setSuccessMessage] = useState<string | undefined>()
 
   const form = useForm<FieldValues>({
     resolver: zodResolver(ResetPasswordSchema),

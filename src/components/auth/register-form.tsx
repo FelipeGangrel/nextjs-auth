@@ -26,12 +26,8 @@ type FieldValues = z.infer<typeof RegisterSchema>
 
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition()
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(
-    undefined
-  )
-  const [successMessage, setSuccessMessage] = useState<string | undefined>(
-    undefined
-  )
+  const [errorMessage, setErrorMessage] = useState<string | undefined>()
+  const [successMessage, setSuccessMessage] = useState<string | undefined>()
 
   const form = useForm<FieldValues>({
     resolver: zodResolver(RegisterSchema),

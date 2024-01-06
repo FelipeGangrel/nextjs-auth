@@ -15,12 +15,8 @@ export const NewVerificationForm = () => {
   const token = searchParams.get('token')
 
   const [loading, setLoading] = useState(true)
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(
-    undefined
-  )
-  const [successMessage, setSuccessMessage] = useState<string | undefined>(
-    undefined
-  )
+  const [errorMessage, setErrorMessage] = useState<string | undefined>()
+  const [successMessage, setSuccessMessage] = useState<string | undefined>()
 
   const verifyEmail = useCallback(() => {
     if (!token) {
