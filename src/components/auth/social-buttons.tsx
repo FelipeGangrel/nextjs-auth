@@ -1,5 +1,6 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { FaGithub as GithubIcon } from 'react-icons/fa'
 import { FcGoogle as GoogleIcon } from 'react-icons/fc'
@@ -8,9 +9,13 @@ import { Button } from '@/components/ui/button'
 import { appRoutes } from '@/lib/routes'
 
 export const SocialButtons = () => {
+  const searchParams = useSearchParams()
+
+  const callbackUrl = searchParams.get('callbackUrl')
+
   const handleClick = (provider: 'google' | 'github') => {
     signIn(provider, {
-      callbackUrl: appRoutes.settings(),
+      callbackUrl: callbackUrl || appRoutes.settings(),
     })
   }
 
