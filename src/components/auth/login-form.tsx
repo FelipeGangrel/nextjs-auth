@@ -34,6 +34,8 @@ export const LoginForm = () => {
       ? 'Email already used with different provider'
       : undefined
 
+  const callbackUrl = searchParams.get('callbackUrl')
+
   const [isPending, startTransition] = useTransition()
   const [show2FA, setShow2FA] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | undefined>(urlError)
@@ -58,7 +60,7 @@ export const LoginForm = () => {
     }
 
     startTransition(() => {
-      login(values)
+      login(values, callbackUrl)
         .then((response) => {
           if (response?.error) {
             form.reset()

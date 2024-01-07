@@ -13,7 +13,10 @@ import { appRoutes } from '@/lib/routes'
 import { generateTwoFactorToken, generateVerificationToken } from '@/lib/tokens'
 import { LoginSchema } from '@/schemas'
 
-export const login = async (values: z.infer<typeof LoginSchema>) => {
+export const login = async (
+  values: z.infer<typeof LoginSchema>,
+  callbackUrl?: string | null
+) => {
   const validatedFields = LoginSchema.safeParse(values)
 
   if (!validatedFields.success) {
@@ -90,7 +93,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     await signIn('credentials', {
       email,
       password,
-      redirectTo: appRoutes.settings(),
+      redirectTo: callbackUrl || appRoutes.settings(),
     })
   } catch (error) {
     if (error instanceof AuthError) {

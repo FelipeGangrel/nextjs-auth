@@ -1,6 +1,10 @@
 export const appRoutes = {
   auth: {
-    login: () => '/auth/login' as const,
+    login: (callbackUrl?: string) => {
+      if (!callbackUrl) return '/auth/login' as const
+
+      return `/auth/login?callbackUrl=${callbackUrl}` as const
+    },
     register: () => '/auth/register' as const,
     error: () => '/auth/error' as const,
     newVerification: (token?: string) => {
