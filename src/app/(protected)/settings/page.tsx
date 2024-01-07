@@ -1,22 +1,34 @@
 'use client'
 
-import { logout } from '@/actions/logout'
+import { useSession } from 'next-auth/react'
+import { useTransition } from 'react'
+
+import { updateSettings } from '@/actions/update-sessings'
 import { Button } from '@/components/ui/button'
-import { useCurrentUser } from '@/hooks/use-current-user'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 export default function SettingsPage() {
-  const user = useCurrentUser()
+  const { update } = useSession()
+  const [isPending, startTransition] = useTransition()
 
-  const handleSignOut = async () => {
-    await logout()
+  const onClick = async () => {
+    startTransition(() => {
+      updateSettings({ name: 'New name' }).then(() => {
+        update()
+      })
+    })
   }
 
   return (
-    <div className="w-full rounded-xl bg-white p-10">
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-      <Button onClick={handleSignOut} variant="destructive">
-        Sign Out
-      </Button>
-    </div>
+    <Card className="w-full shadow-md">
+      <CardHeader>
+        <p className="text-center text-2xl font-semibold">Settings</p>
+      </CardHeader>
+      <CardContent>
+        <Button onClick={onClick} disabled={isPending}>
+          Update name
+        </Button>
+      </CardContent>
+    </Card>
   )
 }

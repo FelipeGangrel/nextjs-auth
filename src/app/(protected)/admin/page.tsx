@@ -50,13 +50,15 @@ export default function AdminPage() {
   return (
     <Card className="w-full shadow-md">
       <CardHeader>
-        <p className="text-center text-2xl font-semibold">Admin page</p>
+        <p className="text-center text-2xl font-semibold">Admin</p>
       </CardHeader>
       <CardContent className="space-y-4">
         <RoleGate
           allowedRoles={['ADMIN']}
           fallback={
-            <Message variant="error">Sorry, you are not an admin!</Message>
+            <Message variant="error">
+              Sorry {user?.name}, you are not an admin!
+            </Message>
           }
         >
           <Message variant="success">
