@@ -5,7 +5,6 @@ import { UserRole } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 import * as z from 'zod'
 
 import { updateSettings } from '@/actions/update-sessings'
@@ -62,13 +61,11 @@ export default function SettingsPage() {
     startTransition(() => {
       updateSettings(values)
         .then((response) => {
-          if (response.error) {
-            setErrorMessage(response.error)
-          }
+          setErrorMessage(response.error)
+          setSuccessMessage(response.success)
 
           if (response.success) {
             update()
-            setSuccessMessage(response.success)
           }
         })
         .catch(() => {
