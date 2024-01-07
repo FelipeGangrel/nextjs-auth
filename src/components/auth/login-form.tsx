@@ -51,6 +51,12 @@ export const LoginForm = () => {
   const handleSubmit = (values: FieldValues) => {
     setErrorMessage(undefined)
     setSuccessMessage(undefined)
+
+    // to avoid sending empty code
+    if (show2FA && !values.code) {
+      return
+    }
+
     startTransition(() => {
       login(values)
         .then((response) => {
