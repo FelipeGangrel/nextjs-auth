@@ -1,5 +1,7 @@
 'use client'
 
+import { toast } from 'sonner'
+
 import { adminOnly } from '@/actions/admin-only'
 import { RoleGate } from '@/components/auth/role-gate'
 import { Message } from '@/components/message'
@@ -14,21 +16,21 @@ export default function AdminPage() {
     const res = await fetch('/api/admin')
 
     if (res.ok) {
-      return console.log('OK')
+      return toast.success('Allowed API route')
     }
 
-    console.log('ERROR')
+    return toast.error('Not allowed API route')
   }
 
   const executeAdminServerAction = async () => {
     const res = await adminOnly()
 
-    if (res.error) {
-      return console.log('ERROR')
+    if (res.success) {
+      return toast.success('Allowed server action')
     }
 
-    if (res.success) {
-      return console.log('OK')
+    if (res.error) {
+      return toast.error('Not allowed server action')
     }
   }
 
