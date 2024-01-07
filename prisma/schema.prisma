@@ -67,11 +67,11 @@ model PasswordResetToken {
 
 model TwoFactorToken {
   id        String   @id @default(cuid())
-  userId    String
+  email     String
   token     String   @unique
   expiresAt DateTime
 
-  @@unique([userId, token])
+  @@unique([email, token])
 }
 
 model TwoFactorConfirmation {
