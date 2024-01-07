@@ -8,22 +8,21 @@ import { Message } from '../message'
 
 type RoleGateProps = {
   children: React.ReactNode
+  fallback?: React.ReactNode
   allowedRoles: UserRole[]
 }
 
-const Fallback = () => {
-  return (
-    <Message variant="error">You are not allowed to see this content.</Message>
-  )
-}
-
-export const RoleGate = ({ children, allowedRoles }: RoleGateProps) => {
+export const RoleGate = ({
+  children,
+  allowedRoles,
+  fallback = null,
+}: RoleGateProps) => {
   const user = useCurrentUser()
 
-  if (!user) return <Fallback />
+  if (!user) return <>{fallback}</>
 
   if (![...allowedRoles].includes(user.role)) {
-    return <Fallback />
+    return <>{fallback}</>
   }
 
   return <>{children}</>

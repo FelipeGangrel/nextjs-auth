@@ -53,7 +53,12 @@ export default function AdminPage() {
         <p className="text-center text-2xl font-semibold">Admin page</p>
       </CardHeader>
       <CardContent className="space-y-4">
-        <RoleGate allowedRoles={['ADMIN']}>
+        <RoleGate
+          allowedRoles={['ADMIN']}
+          fallback={
+            <Message variant="error">Sorry, you are not an admin!</Message>
+          }
+        >
           <Message variant="success">
             Hello {user?.name}, you are an admin!
           </Message>
