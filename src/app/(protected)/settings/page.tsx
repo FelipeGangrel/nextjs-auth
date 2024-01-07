@@ -1,21 +1,22 @@
-import { auth, signOut } from '@/auth'
-import { Button } from '@/components/ui/button'
+'use client'
 
-export default async function SettingsPage() {
-  const session = await auth()
+import { logout } from '@/actions/logout'
+import { Button } from '@/components/ui/button'
+import { useCurrentUser } from '@/hooks/use-current-user'
+
+export default function SettingsPage() {
+  const user = useCurrentUser()
 
   const handleSignOut = async () => {
-    'use server'
-
-    await signOut()
+    await logout()
   }
 
   return (
-    <form action={handleSignOut}>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-      <Button type="submit" variant="destructive">
+    <div className="rounded-xl bg-white p-10">
+      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <Button onClick={handleSignOut} variant="destructive">
         Sign Out
       </Button>
-    </form>
+    </div>
   )
 }

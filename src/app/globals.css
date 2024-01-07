@@ -78,11 +78,6 @@ body,
   }
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-@layer components {
-  .default-gradient {
     @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-400 to-teal-800;
   }
 }
