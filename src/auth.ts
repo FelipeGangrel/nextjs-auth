@@ -7,6 +7,7 @@ import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation
 import { getUserById } from '@/data/user'
 import { db } from '@/lib/db'
 
+import { getAccountByUserId } from './data/account'
 import { appRoutes } from './lib/routes'
 
 export const {
@@ -64,9 +65,10 @@ export const {
         if (token.sub) {
           session.user.id = token.sub
         }
-        session.user.role = token.role as UserRole
         session.user.email = token.email
+        session.user.role = token.role as UserRole
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean
+        session.user.isOAuth = token.isOAuth as boolean
       }
 
       return session
@@ -78,9 +80,12 @@ export const {
 
       if (!existingUser) return token
 
+      const existingAccount = await getAccountByUserId(existingUser.id)
+
       token = {
         ...token,
         ...existingUser,
+        isOAuth: !!existingAccount,
       }
 
       return token

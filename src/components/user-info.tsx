@@ -31,7 +31,11 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
     },
     {
       label: '2FA Enabled',
-      value: user?.isTwoFactorEnabled ? 'On' : 'Off',
+      value: user?.isTwoFactorEnabled ? 'Yes' : 'No',
+    },
+    {
+      label: 'OAuth',
+      value: user?.isOAuth ? 'Yes' : 'No',
     },
   ]
 
