@@ -2,18 +2,31 @@ import { Resend } from 'resend'
 
 import { appRoutes } from './routes'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-const baseUrl = 'http://localhost:3000'
+const {
+  RESEND_API_KEY,
+  NEXT_PUBLIC_APP_URL,
+  NEXT_PUBLIC_DOMAIN_VERIFIED,
+  NEXT_PUBLIC_DEFAULT_MAIL_TO,
+} = process.env
 
-const domainVerified = false
-const defaultTo = 'felipefrog@gmail.com'
+const resend = new Resend(RESEND_API_KEY)
+
+const domain = NEXT_PUBLIC_APP_URL
+
+const getSafeEmail = (email: string) => {
+  if (NEXT_PUBLIC_DOMAIN_VERIFIED.toLocaleLowerCase() === 'true') {
+    return email
+  }
+
+  return NEXT_PUBLIC_DEFAULT_MAIL_TO
+}
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const confirmLink = `${baseUrl}/${appRoutes.auth.newVerification(token)}`
+  const confirmLink = `${domain}/${appRoutes.auth.newVerification(token)}`
 
   await resend.emails.send({
     from: 'onboarding@resend.dev',
-    to: domainVerified ? email : defaultTo,
+    to: getSafeEmail(email),
     subject: 'Confirm your email address',
     html: `
     <div>
@@ -27,11 +40,11 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 }
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const resetLink = `${baseUrl}/${appRoutes.auth.newPassword(token)}`
+  const resetLink = `${domain}/${appRoutes.auth.newPassword(token)}`
 
   await resend.emails.send({
     from: 'onboarding@resend.dev',
-    to: domainVerified ? email : defaultTo,
+    to: getSafeEmail(email),
     subject: 'Reset your password',
     html: `
     <div>
@@ -47,7 +60,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
 export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
   await resend.emails.send({
     from: 'onboarding@resend.dev',
-    to: domainVerified ? email : defaultTo,
+    to: getSafeEmail(email),
     subject: '2FA code',
     html: `
     <div>
