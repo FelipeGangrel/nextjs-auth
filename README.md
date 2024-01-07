@@ -5,7 +5,8 @@
 ### Postgres hosting
 
 - Neon.tech: https://neon.tech/ (disconnects all the time)
-- ElephantSQL: https://www.elephantsql.com/
+- ElephantSQL: https://www.elephantsql.com/ (I couldn't reset the database)
+- Or use Docker (the docker-compose.yml file is already configured)
 
 ### Next-Auth
 
