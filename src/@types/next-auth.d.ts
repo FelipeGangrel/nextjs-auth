@@ -3,6 +3,7 @@ import { DefaultSession } from 'next-auth'
 
 type ExtendedUser = {
   role: UserRole
+  isTwoFactorEnabled: boolean
 } & DefaultSession['user']
 
 // for useSession hook and auth function

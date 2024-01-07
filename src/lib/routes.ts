@@ -16,6 +16,9 @@ export const appRoutes = {
     },
   },
   settings: () => '/settings' as const,
+  serverExample: () => '/server-example' as const,
+  clientExample: () => '/client-example' as const,
+  admin: () => '/admin' as const,
 }
 
 export const apiRoutes = {

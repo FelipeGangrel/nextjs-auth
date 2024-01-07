@@ -12,7 +12,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="rounded-xl bg-white p-10">
+    <div className="w-full rounded-xl bg-white p-10">
       <pre>{JSON.stringify(user, null, 2)}</pre>
       <Button onClick={handleSignOut} variant="destructive">
         Sign Out
