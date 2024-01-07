@@ -14,6 +14,10 @@ export const UserInfo = ({ user, label }: UserInfoProps) => {
       value: user?.id,
     },
     {
+      label: 'Role',
+      value: user?.role,
+    },
+    {
       label: 'Name',
       value: user?.name,
     },
