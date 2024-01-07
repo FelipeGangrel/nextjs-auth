@@ -105,59 +105,63 @@ export default function SettingsPage() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="john.doe@example.com"
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="password"
-                        placeholder="******"
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="newPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>New Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="password"
-                        placeholder="******"
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {user?.isOAuth === false && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="john.doe@example.com"
+                            disabled={isPending}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="password"
+                            placeholder="******"
+                            disabled={isPending}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="newPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>New Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="password"
+                            placeholder="******"
+                            disabled={isPending}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
               <FormField
                 control={form.control}
                 name="role"
@@ -183,25 +187,27 @@ export default function SettingsPage() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="isTwoFactorEnabled"
-                render={({ field }) => (
-                  <FormItem className="flex items-center justify-between rounded-md border p-3 shadow-sm">
-                    <div className="space-y-0.5">
-                      <FormLabel>Two Factor Authentication</FormLabel>
-                      <FormDescription>
-                        Enable two factor authentication for your account
-                      </FormDescription>
-                    </div>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={isPending}
-                    />
-                  </FormItem>
-                )}
-              />
+              {user?.isOAuth === false && (
+                <FormField
+                  control={form.control}
+                  name="isTwoFactorEnabled"
+                  render={({ field }) => (
+                    <FormItem className="flex items-center justify-between rounded-md border p-3 shadow-sm">
+                      <div className="space-y-0.5">
+                        <FormLabel>Two Factor Authentication</FormLabel>
+                        <FormDescription>
+                          Enable two factor authentication for your account
+                        </FormDescription>
+                      </div>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        disabled={isPending}
+                      />
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
             {errorMessage && <Message variant="error">{errorMessage}</Message>}
             {successMessage && (

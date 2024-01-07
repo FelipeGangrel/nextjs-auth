@@ -8,9 +8,9 @@ import { generatePasswordResetToken } from '@/lib/tokens'
 import { ResetPasswordSchema } from '@/schemas'
 
 export const resetPassword = async (
-  data: z.infer<typeof ResetPasswordSchema>
+  values: z.infer<typeof ResetPasswordSchema>
 ) => {
-  const validatedFields = ResetPasswordSchema.safeParse(data)
+  const validatedFields = ResetPasswordSchema.safeParse(values)
 
   if (!validatedFields.success) {
     return { error: 'Invalid fields' }

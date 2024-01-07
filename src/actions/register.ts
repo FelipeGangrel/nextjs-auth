@@ -9,8 +9,8 @@ import { sendVerificationEmail } from '@/lib/mail'
 import { generateVerificationToken } from '@/lib/tokens'
 import { RegisterSchema } from '@/schemas'
 
-export const register = async (data: z.infer<typeof RegisterSchema>) => {
-  const validatedFields = RegisterSchema.safeParse(data)
+export const register = async (values: z.infer<typeof RegisterSchema>) => {
+  const validatedFields = RegisterSchema.safeParse(values)
 
   if (!validatedFields.success) {
     return { error: 'Invalid fields' }

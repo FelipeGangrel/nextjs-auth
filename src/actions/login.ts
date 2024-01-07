@@ -13,8 +13,8 @@ import { appRoutes } from '@/lib/routes'
 import { generateTwoFactorToken, generateVerificationToken } from '@/lib/tokens'
 import { LoginSchema } from '@/schemas'
 
-export const login = async (data: z.infer<typeof LoginSchema>) => {
-  const validatedFields = LoginSchema.safeParse(data)
+export const login = async (values: z.infer<typeof LoginSchema>) => {
+  const validatedFields = LoginSchema.safeParse(values)
 
   if (!validatedFields.success) {
     return { error: 'Invalid fields' }

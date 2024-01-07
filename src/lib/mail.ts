@@ -5,12 +5,15 @@ import { appRoutes } from './routes'
 const resend = new Resend(process.env.RESEND_API_KEY)
 const baseUrl = 'http://localhost:3000'
 
+const domainVerified = false
+const defaultTo = 'felipefrog@gmail.com'
+
 export const sendVerificationEmail = async (email: string, token: string) => {
   const confirmLink = `${baseUrl}/${appRoutes.auth.newVerification(token)}`
 
   await resend.emails.send({
     from: 'onboarding@resend.dev',
-    to: email,
+    to: domainVerified ? email : defaultTo,
     subject: 'Confirm your email address',
     html: `
     <div>
@@ -28,7 +31,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
 
   await resend.emails.send({
     from: 'onboarding@resend.dev',
-    to: email,
+    to: domainVerified ? email : defaultTo,
     subject: 'Reset your password',
     html: `
     <div>
@@ -44,7 +47,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
 export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
   await resend.emails.send({
     from: 'onboarding@resend.dev',
-    to: email,
+    to: domainVerified ? email : defaultTo,
     subject: '2FA code',
     html: `
     <div>

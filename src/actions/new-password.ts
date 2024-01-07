@@ -9,14 +9,14 @@ import { db } from '@/lib/db'
 import { NewPasswordSchema } from '@/schemas'
 
 export const newPassword = async (
-  data: z.infer<typeof NewPasswordSchema>,
+  values: z.infer<typeof NewPasswordSchema>,
   token?: string | null
 ) => {
   if (!token) {
     return { error: 'Missing token' }
   }
 
-  const validatedFields = NewPasswordSchema.safeParse(data)
+  const validatedFields = NewPasswordSchema.safeParse(values)
 
   if (!validatedFields.success) {
     return { error: 'Invalid fields' }
