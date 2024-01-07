@@ -1,6 +1,6 @@
 'use client'
 
-import { adminOnly } from '@/actions/admin'
+import { adminOnly } from '@/actions/admin-only'
 import { RoleGate } from '@/components/auth/role-gate'
 import { Message } from '@/components/message'
 import { Button } from '@/components/ui/button'
