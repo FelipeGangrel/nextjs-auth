@@ -7,11 +7,12 @@ import { getVerificationTokenByEmail } from '@/data/verification-token'
 
 import { db } from './db'
 
-const TOKEN_EXPIRY_TIME = 60 * 60 * 1000 // 1 hour
+const ONE_HOUR = 60 * 60 * 1000
+const ONE_MINUTE = 60 * 1000
 
 export const generateVerificationToken = async (email: string) => {
   const token = uuidV4()
-  const expiresAt = new Date(new Date().getTime() + TOKEN_EXPIRY_TIME)
+  const expiresAt = new Date(new Date().getTime() + ONE_HOUR)
 
   const existingToken = await getVerificationTokenByEmail(email)
 
@@ -29,7 +30,7 @@ export const generateVerificationToken = async (email: string) => {
 
 export const generatePasswordResetToken = async (email: string) => {
   const token = uuidV4()
-  const expiresAt = new Date(new Date().getTime() + TOKEN_EXPIRY_TIME)
+  const expiresAt = new Date(new Date().getTime() + ONE_HOUR)
 
   const existingToken = await getPasswordResetTokenByEmail(email)
 
@@ -47,7 +48,7 @@ export const generatePasswordResetToken = async (email: string) => {
 
 export const generateTwoFactorToken = async (email: string) => {
   const token = crypto.randomInt(100_000, 999_999).toString()
-  const expiresAt = new Date(new Date().getTime() + TOKEN_EXPIRY_TIME)
+  const expiresAt = new Date(new Date().getTime() + ONE_MINUTE * 5)
 
   const existingToken = await getTwoFactorTokenByEmail(email)
 
