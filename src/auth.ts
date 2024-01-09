@@ -38,11 +38,27 @@ export const {
    * we can't use Prisma ORM on the edge.
    */
   callbacks: {
-    signIn: async ({ user, account }) => {
-      // allow OAuth without email verification
-      if (account?.provider !== 'credentials') return true
-
+    signIn: async ({ account, user, profile }) => {
       const existingUser = await getUserById(user.id)
+
+      // For GitHub OAuth, we need to fetch the avatar_url
+      if (!existingUser?.image && typeof profile?.avatar_url === 'string') {
+        await db.user.update({
+          where: { id: user.id },
+          data: { image: profile.avatar_url },
+        })
+      }
+
+      // For Google OAuth, we need to fetch the picture
+      if (!existingUser?.image && typeof profile?.picture === 'string') {
+        await db.user.update({
+          where: { id: user.id },
+          data: { image: profile.picture },
+        })
+      }
+
+      // Allow OAuth without email verification
+      if (account?.provider !== 'credentials') return true
 
       if (!existingUser?.emailVerified) return false
 
